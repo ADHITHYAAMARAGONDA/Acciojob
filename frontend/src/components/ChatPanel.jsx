@@ -97,17 +97,20 @@ function ChatPanel() {
 
     try {
       const token = localStorage.getItem("token");
-      await fetch(`http://localhost:5000/api/sessions/${currentSessionId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          chatHistory,
-          generatedCode,
-        }),
-      });
+      await fetch(
+        `https://acciojob-i0xu.onrender.com/api/sessions/${currentSessionId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            chatHistory,
+            generatedCode,
+          }),
+        }
+      );
     } catch (error) {
       console.error("Auto-save failed:", error);
     }
@@ -130,7 +133,7 @@ function ChatPanel() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await fetch("http://localhost:5000/api/chat", {
+      const res = await fetch("https://acciojob-i0xu.onrender.com/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

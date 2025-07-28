@@ -21,11 +21,14 @@ function SessionManager() {
   const fetchSessions = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/api/sessions", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "https://acciojob-i0xu.onrender.com/api/sessions",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const data = await response.json();
       setSessions(data);
     } catch (error) {
@@ -39,7 +42,7 @@ function SessionManager() {
   const loadSession = async (sessionId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/sessions/${sessionId}`,
+        `https://acciojob-i0xu.onrender.com/api/sessions/${sessionId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -59,14 +62,19 @@ function SessionManager() {
   // Create a new session
   const createSession = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/sessions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ title: newSessionTitle || "Untitled Session" }),
-      });
+      const response = await fetch(
+        "https://acciojob-i0xu.onrender.com/api/sessions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            title: newSessionTitle || "Untitled Session",
+          }),
+        }
+      );
       const newSession = await response.json();
 
       setSessions([newSession, ...sessions]);
@@ -86,12 +94,15 @@ function SessionManager() {
       return;
 
     try {
-      await fetch(`http://localhost:5000/api/sessions/${sessionId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await fetch(
+        `https://acciojob-i0xu.onrender.com/api/sessions/${sessionId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       setSessions(sessions.filter((s) => s._id !== sessionId));
       if (currentSessionId === sessionId) {
