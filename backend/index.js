@@ -5,6 +5,7 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/auth");
 const chatRoutes = require("./routes/chat"); // Import chat routes
+const sessionRoutes = require("./routes/sessions"); // Import session routes
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -15,7 +16,13 @@ connectDB();
 // CORS configuration: allow requests from your frontend (adjust origin as needed)
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin:
+      process.env.NODE_ENV === "production"
+        ? [
+            "https://your-frontend-app.vercel.app",
+            "https://your-frontend-app.netlify.app",
+          ]
+        : "http://localhost:5173",
     credentials: true,
   })
 );
@@ -26,6 +33,7 @@ app.use(express.json());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/sessions", sessionRoutes);
 
 app.get("/", (req, res) => {
   res.send("Backend server is running");
