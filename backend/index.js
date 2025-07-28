@@ -18,10 +18,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? [
-            "https://your-frontend-app.vercel.app",
-            "https://your-frontend-app.netlify.app",
-          ]
+        ? ["https://acciojob-nine.vercel.app", "https://*.vercel.app"]
         : "http://localhost:5173",
     credentials: true,
   })
