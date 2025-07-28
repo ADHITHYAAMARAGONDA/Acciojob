@@ -3,11 +3,13 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ChatPanel from "../components/ChatPanel";
 import CodePreview from "../components/CodePreview";
-import useChatStore from "../store/useChatStore";
+import SessionManager from "../components/SessionManager";
+import LivePreview from "../components/LivePreview";
+import CollaborationPanel from "../components/CollaborationPanel";
 import useStore from "../store/useStore";
 
 function ChatPage() {
-  const { code } = useChatStore();
+  const { generatedCode } = useStore();
   const user = useStore((state) => state.user);
   const navigate = useNavigate();
 
@@ -22,12 +24,26 @@ function ChatPage() {
   }
 
   return (
-    <div style={{ display: "flex", gap: 20, padding: 20 }}>
-      <div style={{ flex: 1 }}>
-        <ChatPanel />
+    <div style={{ padding: 20 }}>
+      <div style={{ display: "flex", gap: 20, marginBottom: 20 }}>
+        <div style={{ flex: 1 }}>
+          <SessionManager />
+          <CollaborationPanel />
+        </div>
+        <div style={{ flex: 2 }}>
+          <ChatPanel />
+        </div>
       </div>
-      <div style={{ flex: 1 }}>
-        <CodePreview jsxCode={code.jsx} cssCode={code.css} />
+      <div style={{ display: "flex", gap: 20 }}>
+        <div style={{ flex: 1 }}>
+          <LivePreview />
+        </div>
+        <div style={{ flex: 1 }}>
+          <CodePreview
+            jsxCode={generatedCode.jsx}
+            cssCode={generatedCode.css}
+          />
+        </div>
       </div>
     </div>
   );

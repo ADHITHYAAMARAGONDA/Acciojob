@@ -45,8 +45,22 @@ function AppWrapper() {
         <Route path="/register" element={<Register />} />
 
         {/* ✅ Protected routes */}
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/chat" element={<ChatPage />} />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              <ChatPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );
